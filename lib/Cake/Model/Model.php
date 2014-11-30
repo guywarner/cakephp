@@ -1776,6 +1776,8 @@ class Model extends Object implements CakeEventListener {
  * @return mixed On success Model::$data if its not empty or true, false on failure
  * @throws PDOException
  * @link http://book.cakephp.org/2.0/en/models/saving-your-data.html
+ * @triggers Model.beforeSave $this, array($options)
+ * @triggers Model.afterSave $this, array($created, $options)
  */
 	protected function _doSave($data = null, $options = array()) {
 		$_whitelist = $this->whitelist;
@@ -2660,6 +2662,8 @@ class Model extends Object implements CakeEventListener {
  * @param bool $cascade Set to true to delete records that depend on this record
  * @return bool True on success
  * @link http://book.cakephp.org/2.0/en/models/deleting-data.html
+ * @triggers Model.beforeDelete $this, array($cascade)
+ * @triggers Model.afterDelete $this)
  */
 	public function delete($id = null, $cascade = true) {
 		if (!empty($id)) {
@@ -3033,6 +3037,7 @@ class Model extends Object implements CakeEventListener {
  * @param array $query Option fields (conditions / fields / joins / limit / offset / order / page / group / callbacks)
  * @return array|null Query array or null if it could not be build for some reasons
  * @see Model::find()
+ * @triggers Model.beforeFind $this, array($query)
  */
 	public function buildQuery($type = 'first', $query = array()) {
 		$query = array_merge(
@@ -3320,6 +3325,7 @@ class Model extends Object implements CakeEventListener {
  * @param array $results Results to filter
  * @param bool $primary If this is the primary model results (results from model where the find operation was performed)
  * @return array Set of filtered results
+ * @triggers Model.afterFind $this, array($results, $primary)
  */
 	protected function _filterResults($results, $primary = true) {
 		$event = new CakeEvent('Model.afterFind', $this, array($results, $primary));

@@ -459,6 +459,8 @@ class View extends Object {
  * @param string $layout Layout to use.
  * @return string|null Rendered content or null if content already rendered and returned earlier.
  * @throws CakeException If there is an error in the view.
+ * @triggers View.beforeRender $this, array($viewFileName
+ * @triggers View.afterRender $this, array($viewFileName
  */
 	public function render($view = null, $layout = null) {
 		if ($this->hasRendered) {
@@ -505,6 +507,8 @@ class View extends Object {
  * @param string $layout Layout name
  * @return mixed Rendered output, or false on error
  * @throws CakeException if there is an error in the view.
+ * @triggers View.beforeLayout $this, array($layoutFileName
+ * @triggers View.afterLayout $this, array($layoutFileName
  */
 	public function renderLayout($content, $layout = null) {
 		$layoutFileName = $this->_getLayoutFileName($layout);
@@ -902,6 +906,8 @@ class View extends Object {
  * @param array $data Data to include in rendered view. If empty the current View::$viewVars will be used.
  * @return string Rendered output
  * @throws CakeException when a block is left open.
+ * @triggers View.beforeRenderFile $this, array($viewFile)
+ * @triggers View.afterRenderFile $this, array($viewFile, $content)
  */
 	protected function _render($viewFile, $data = array()) {
 		if (empty($data)) {
@@ -1196,6 +1202,8 @@ class View extends Object {
  * @param array $data Data to render
  * @param array $options Element options
  * @return string
+ * @triggers View.beforeRender $this, array($file
+ * @triggers View.afterRender $this, array($file, $element
  */
 	protected function _renderElement($file, $data, $options) {
 		$current = $this->_current;
